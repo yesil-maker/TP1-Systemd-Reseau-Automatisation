@@ -1,0 +1,11 @@
+[Unit]
+Description=Publication du portail Helios toutes les 2 minutes
+
+[Timer]
+OnCalendar=*:0/2
+Persistent=yes
+
+Unit=helios-suivi-publish.service
+
+[Install]
+WantedBy=timers.target
