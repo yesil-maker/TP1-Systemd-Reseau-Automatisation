@@ -1,0 +1,18 @@
+# Delegation Helios
+
+Cmnd_Alias HELIOS_SVC = /usr/bin/systemctl start helios-collect.service, \
+                         /usr/bin/systemctl stop helios-collect.service, \
+                         /usr/bin/systemctl restart helios-collect.service, \
+                         /usr/bin/systemctl status helios-collect.service, \
+                         /usr/bin/systemctl start helios.target, \
+                         /usr/bin/systemctl stop helios.target
+
+Cmnd_Alias HELIOS_LOG = /usr/bin/journalctl -u helios-collect.service *, \
+                         /usr/bin/journalctl -u helios-archive.service *
+
+Defaults:%helios-ops timestamp_timeout=5, passwd_tries=2
+Defaults:%helios-ops log_output
+Defaults:%helios-ops iolog_dir=/var/log/sudo-io
+Defaults:%helios-ops logfile=/var/log/sudo-helios.log
+
+%helios-ops ALL = (root) HELIOS_SVC, HELIOS_LOG
